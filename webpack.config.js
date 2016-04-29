@@ -1,6 +1,5 @@
 var getConfig = require('hjs-webpack');
 
-
 module.exports = getConfig({
   // entry point for the app
   in: 'src/app.js',
