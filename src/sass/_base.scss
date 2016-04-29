@@ -1,0 +1,101 @@
+/* _base.scss */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: $body-bg-color;
+  color: $black;
+  font-family: "Noto Sans", Arial, sans-serif;
+  font-size: 100%;
+}
+
+h2 {
+  font-size: 1.8em;
+  margin-bottom: 1em;
+}
+
+h3 {
+  font-size: 1.2em;
+  margin-bottom: 0.2em;
+  font-style: italic;
+}
+
+h4 {
+  font-size: 1.1em;
+}
+
+select {
+  outline: none;
+}
+
+label {
+  font-size: 1.2em;
+  line-height: 2.2;
+}
+
+li {
+  list-style: none;
+  opacity: 0.8;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    opacity: 1.0;
+  }
+}
+
+a {
+  color: $black;
+  display: inline-block;
+  text-decoration: none;
+  &:visited,
+  &:hover,
+  &:active {
+    color: $black;
+  }
+}
+
+#root {
+  max-width: 1000px;
+  margin: 30px auto;
+  background: $container-bg-color;
+  border-radius: 8px;
+  box-shadow: 0 4px 4px rgba(0,0,0,.03);
+}
+
+.container {
+  display: flex;
+}
+
+.container > section {
+	padding: 20px;
+}
+
+.genre-picker {
+  width: 20%;
+  margin-right: 50px;
+  background: $genre-picker-bg-color;
+  border-radius: 8px 0 0 8px;
+  box-shadow: 0 4px 4px rgba(0,0,0,.03);
+}
+
+.current-hits {
+  width: 80%;
+  span {
+    text-transform: capitalize;
+  }
+}
+
+.album-list {
+  display: flex;
+  flex-flow: row wrap;
+  li {
+    width: 220px;
+    margin-bottom: 2em;
+  }
+  img {
+    margin-bottom: 10px;
+  }
+}
