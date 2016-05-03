@@ -3,21 +3,23 @@ import axios from 'axios';
 import CurrentHitsList from './CurrentHitsList';
 import genreIds from '../genres';
 
-const CurrentHits = React.createClass({
-  propTypes: {
-    genre: React.PropTypes.string.isRequired
-  },
-  getInitialState() {
-    return {
+class CurrentHits extends React.Component {
+
+  constructor() {
+    super();
+    this.state = {
       albums: {}
     };
-  },
+  }
+
   componentDidMount() {
     this.getCurrentHits(this.props.genre);
-  },
+  }
+
   componentWillReceiveProps(newProps) {
     this.getCurrentHits(newProps.genre);
-  },
+  }
+
   getCurrentHits(genre) {
     const url = 'https://itunes.apple.com/us/rss/topalbums/limit=5/genre=' + genreIds[genre] + '/explicit=true/json';
     axios.get(url)
@@ -28,8 +30,8 @@ const CurrentHits = React.createClass({
       .catch((err) => {
         console.log("An error occurred");
       });
+  }
 
-  },
   render() {
     return (
       <section className="current-hits">
@@ -38,6 +40,10 @@ const CurrentHits = React.createClass({
       </section>
     );
   }
-});
+}
+
+CurrentHits.propTypes = {
+  genre: React.PropTypes.string.isRequired
+};
 
 export default CurrentHits;

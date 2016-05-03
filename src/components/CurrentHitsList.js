@@ -1,10 +1,7 @@
 import React from 'react';
 
-var CurrentHitsList = React.createClass({
-  propTypes: {
-    albums: React.PropTypes.object.isRequired,
-    genre: React.PropTypes.string.isRequired
-  },
+class CurrentHitsList extends React.Component {
+
   generateListItem(key) {
     const {albums, genre} = this.props;
     const album = albums[genre][key];
@@ -17,7 +14,8 @@ var CurrentHitsList = React.createClass({
         </a>
       </li>
     );
-  },
+  }
+
   render() {
     const {albums, genre} = this.props;
     if (!albums[genre]) {
@@ -27,10 +25,15 @@ var CurrentHitsList = React.createClass({
     }
     return (
       <ul className="album-list">
-        {Object.keys(albums[genre]).map(this.generateListItem)}
+        {Object.keys(albums[genre]).map(this.generateListItem.bind(this))}
       </ul>
     );
   }
-});
+}
+
+CurrentHitsList.propTypes = {
+  albums: React.PropTypes.object.isRequired,
+  genre: React.PropTypes.string.isRequired
+};
 
 export default CurrentHitsList;
