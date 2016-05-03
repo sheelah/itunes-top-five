@@ -4,6 +4,9 @@ import CurrentHitsList from './CurrentHitsList';
 import genreIds from '../genres';
 
 const CurrentHits = React.createClass({
+  propTypes: {
+    genre: React.PropTypes.string.isRequired
+  },
   getInitialState() {
     return {
       albums: {}
@@ -19,7 +22,7 @@ const CurrentHits = React.createClass({
     const url = 'https://itunes.apple.com/us/rss/topalbums/limit=5/genre=' + genreIds[genre] + '/explicit=true/json';
     axios.get(url)
       .then(results => {
-        const albums = Object.assign({}, this.state.albums, results.data.feed.entry);
+        const albums = Object.assign({}, this.state.albums, {[genre] : results.data.feed.entry});
         this.setState({albums});
       })
       .catch((err) => {
@@ -31,7 +34,7 @@ const CurrentHits = React.createClass({
     return (
       <section className="current-hits">
         <h2>Current iTunes Top Five - <span>{this.props.genre.replace(/([A-Z])/g, ' $1')}</span></h2>
-        <CurrentHitsList albums={this.state.albums} />
+        <CurrentHitsList albums={this.state.albums} genre={this.props.genre} />
       </section>
     );
   }

@@ -1,6 +1,9 @@
 import React from 'react';
 
 const GenrePicker = React.createClass({
+  propTypes: {
+    changeGenre: React.PropTypes.func.isRequired
+  },
   onGenreChange(e) {
     e.preventDefault();
     let genre = e.target.value;
