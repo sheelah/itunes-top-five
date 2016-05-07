@@ -1,7 +1,6 @@
 import React from 'react';
-import axios from 'axios';
 import CurrentHitsList from './CurrentHitsList';
-import genreIds from '../genres';
+import * as itunesApi from '../api/itunes-api';
 
 class CurrentHits extends React.Component {
 
@@ -21,15 +20,13 @@ class CurrentHits extends React.Component {
   }
 
   getCurrentHits(genre) {
-    const url = 'https://itunes.apple.com/us/rss/topalbums/limit=5/genre=' + genreIds[genre] + '/explicit=true/json';
-    axios.get(url)
-      .then(results => {
-        const albums = Object.assign({}, this.state.albums, {[genre] : results.data.feed.entry});
-        this.setState({albums});
-      })
+    itunesApi.getCurrentHits(genre).then(hits => {
+      const albums = Object.assign({}, this.state.albums, {[genre] : hits.feed.entry});
+      this.setState({albums});
+    })
       .catch((err) => {
         console.log("An error occurred");
-      });
+    });
   }
 
   render() {
