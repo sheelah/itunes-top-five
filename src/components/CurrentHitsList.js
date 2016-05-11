@@ -17,12 +17,19 @@ class CurrentHitsList extends React.Component {
   }
 
   render() {
-    const {albums, genre} = this.props;
-    if (!albums[genre]) {
+    const {albums, genre, inProgress, error} = this.props;
+    if (error) {
+      return (
+        <p>An error has occurred.</p>
+      );
+    }
+
+    if (inProgress === true || !albums[genre]) {
       return (
         <p>Loading ...</p>
       );
     }
+
     return (
       <ul className="album-list">
         {Object.keys(albums[genre]).map(this.generateListItem.bind(this))}
@@ -33,7 +40,9 @@ class CurrentHitsList extends React.Component {
 
 CurrentHitsList.propTypes = {
   albums: React.PropTypes.object.isRequired,
-  genre: React.PropTypes.string.isRequired
+  genre: React.PropTypes.string.isRequired,
+  inProgress: React.PropTypes.bool.isRequired,
+  error: React.PropTypes.string
 };
 
 export default CurrentHitsList;
