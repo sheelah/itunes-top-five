@@ -21,6 +21,13 @@ class CurrentHits extends React.Component {
     itunesApi.getCurrentHits(genre);
   }
 
+  renderAlbum(album) {
+    const {albums, genre} = this.props;
+    return (
+      <CurrentHitsList key={albums[genre][album].id.attributes["im:id"]} album={albums[genre][album]} />
+    );
+  }
+
   render() {
     const {albums, genre, inProgress, error} = this.props;
     let message = null;
@@ -41,9 +48,7 @@ class CurrentHits extends React.Component {
         <div>
           <h2>Current iTunes Top Five - <span>{genre.replace(/([A-Z])/g, ' $1')}</span></h2>
           <ul className="album-list">
-            {Object.keys(albums[genre]).map(album => {
-              return <CurrentHitsList key={albums[genre][album].id.attributes["im:id"]} album={albums[genre][album]} />;
-            })}
+            {Object.keys(albums[genre]).map(this.renderAlbum.bind(this))}
           </ul>
         </div>
     );
