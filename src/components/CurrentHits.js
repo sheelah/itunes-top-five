@@ -22,11 +22,30 @@ class CurrentHits extends React.Component {
   }
 
   render() {
+    const {albums, genre, inProgress, error} = this.props;
+    let message = null;
+
+    if (error) {
+      return (
+        <p>An error has occurred.</p>
+      );
+    }
+
+    if (inProgress === true || !albums[genre]) {
+      return (
+        <p>Loading ...</p>
+      );
+    }
+
     return (
-      <section className="current-hits">
-        <h2>Current iTunes Top Five - <span>{this.props.genre.replace(/([A-Z])/g, ' $1')}</span></h2>
-        <CurrentHitsList albums={this.props.albums} genre={this.props.genre} inProgress={this.props.inProgress} error={this.props.error} />
-      </section>
+        <div>
+          <h2>Current iTunes Top Five - <span>{genre.replace(/([A-Z])/g, ' $1')}</span></h2>
+          <ul className="album-list">
+            {Object.keys(albums[genre]).map(album => {
+              return <CurrentHitsList key={albums[genre][album].id.attributes["im:id"]} album={albums[genre][album]} />;
+            })}
+          </ul>
+        </div>
     );
   }
 }

@@ -1,48 +1,22 @@
 import React from 'react';
 
-class CurrentHitsList extends React.Component {
+const CurrentHitsList = (props) => {
 
-  generateListItem(key) {
-    const {albums, genre} = this.props;
-    const album = albums[genre][key];
-    return (
-      <li key={key}>
-        <a href={album.link.attributes.href} title="View on iTunes">
-          <img src={album["im:image"][2].label} />
-          <h3 className="album-name">{album["im:name"].label}</h3>
-          <h4 className="artist-name">{album["im:artist"].label}</h4>
-        </a>
-      </li>
-    );
-  }
+  const album = props.album;
 
-  render() {
-    const {albums, genre, inProgress, error} = this.props;
-    if (error) {
-      return (
-        <p>An error has occurred.</p>
-      );
-    }
-
-    if (inProgress === true || !albums[genre]) {
-      return (
-        <p>Loading ...</p>
-      );
-    }
-
-    return (
-      <ul className="album-list">
-        {Object.keys(albums[genre]).map(this.generateListItem.bind(this))}
-      </ul>
-    );
-  }
-}
+  return (
+    <li>
+      <a href={album.link.attributes.href} title="View on iTunes">
+        <img src={album["im:image"][2].label} />
+        <h3 className="album-name">{album["im:name"].label}</h3>
+        <h4 className="artist-name">{album["im:artist"].label}</h4>
+      </a>
+    </li>
+  );
+};
 
 CurrentHitsList.propTypes = {
-  albums: React.PropTypes.object.isRequired,
-  genre: React.PropTypes.string.isRequired,
-  inProgress: React.PropTypes.bool.isRequired,
-  error: React.PropTypes.string
+  album: React.PropTypes.object.isRequired,
 };
 
 export default CurrentHitsList;

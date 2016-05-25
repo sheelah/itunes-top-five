@@ -14,7 +14,9 @@ class App extends React.Component {
     return (
       <div className="container">
         <GenrePicker changeGenre={this.changeGenre.bind(this)} />
-        <CurrentHits genre={this.props.genreChoice} />
+        <section className="current-hits">
+          <CurrentHits genre={this.props.genreChoice} />
+        </section>
       </div>
     );
   }
